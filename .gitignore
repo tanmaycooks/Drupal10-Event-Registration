@@ -1,0 +1,15 @@
+# Drupal / PHP
+vendor/
+core/
+contrib/
+sites/default/files/
+*.sql
+.env
+.idea/
+.vscode/
+*.tar.gz
+composer.lock
+
+# OS
+.DS_Store
+Thumbs.db

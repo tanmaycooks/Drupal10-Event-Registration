@@ -1,0 +1,4 @@
+administer event registrations:
+  title: 'Administer event registrations'
+  description: 'Manage events, view and export registrations, configure module settings'
+  restrict access: true

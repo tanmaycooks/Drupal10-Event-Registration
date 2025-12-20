@@ -1,0 +1,33 @@
+services:
+  event_registration.event_manager:
+    class: Drupal\event_registration\Service\EventManager
+    arguments:
+      - '@event_registration.event_repository'
+      - '@datetime.time'
+      - '@logger.channel.event_registration'
+
+  event_registration.registration_manager:
+    class: Drupal\event_registration\Service\RegistrationManager
+    arguments:
+      - '@event_registration.registration_repository'
+      - '@event_registration.event_repository'
+      - '@email.validator'
+      - '@logger.channel.event_registration'
+
+  event_registration.mail_service:
+    class: Drupal\event_registration\Service\MailService
+    arguments:
+      - '@plugin.manager.mail'
+      - '@config.factory'
+      - '@renderer'
+      - '@logger.channel.event_registration'
+
+  event_registration.event_repository:
+    class: Drupal\event_registration\Repository\EventRepository
+    arguments:
+      - '@database'
+
+  event_registration.registration_repository:
+    class: Drupal\event_registration\Repository\RegistrationRepository
+    arguments:
+      - '@database'
