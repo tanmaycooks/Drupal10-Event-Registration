@@ -1,0 +1,8 @@
+name: Event Registration
+type: module
+description: 'Custom event registration system with admin management, public registration, and reporting capabilities.'
+core_version_requirement: ^10 || ^11
+package: Custom
+dependencies:
+  - drupal:system
+  - drupal:user
