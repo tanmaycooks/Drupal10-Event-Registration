@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<ruleset name="Drupal Module">
+  <description>Drupal coding standards for Event Registration module.</description>
+  <file>.</file>
+  <arg name="extensions" value="php,module,inc,install,test,profile,theme,css,info,txt,md,yml"/>
+  <config name="drupal_core_version" value="10"/>
+
+  <rule ref="Drupal"/>
+  <rule ref="DrupalPractice"/>
+</ruleset>
