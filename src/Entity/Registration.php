@@ -7,6 +7,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\user\UserInterface;
+use Drupal\Core\Entity\EntityChangedTrait;
 
 /**
  * Defines the Registration entity.
