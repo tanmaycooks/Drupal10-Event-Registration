@@ -61,3 +61,10 @@ function event_registration_schema() {
 function event_registration_install() {
   \Drupal::messenger()->addStatus(__FUNCTION__ . ' module installed successfully.');
 }
+
+/**
+ * Implements hook_uninstall().
+ */
+function event_registration_uninstall() {
+  \Drupal::messenger()->addStatus(__FUNCTION__ . ' module uninstalled successfully.');
+}
