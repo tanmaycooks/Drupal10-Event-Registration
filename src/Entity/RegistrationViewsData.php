@@ -15,6 +15,7 @@ class RegistrationViewsData extends EntityViewsData
      */
     public function getViewsData()
     {
+        // Get the default data from the entity type.
         $data = parent::getViewsData();
 
         $data['event_registration']['table']['base'] = [
