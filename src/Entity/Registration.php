@@ -23,6 +23,9 @@ use Drupal\Core\Entity\EntityChangedTrait;
  *     "uuid" = "uuid",
  *     "owner" = "uid",
  *   },
+ *   handlers = {
+ *     "views_data" = "Drupal\event_registration\Entity\RegistrationViewsData",
+ *   },
  * )
  */
 class Registration extends ContentEntityBase implements RegistrationInterface
