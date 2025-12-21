@@ -26,6 +26,7 @@ use Drupal\user\UserInterface;
  */
 class Registration extends ContentEntityBase implements RegistrationInterface
 {
+    use EntityChangedTrait;
 
     /**
      * {@inheritdoc}
