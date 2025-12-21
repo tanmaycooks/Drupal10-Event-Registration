@@ -54,3 +54,10 @@ function event_registration_schema() {
 
   return $schema;
 }
+
+/**
+ * Implements hook_install().
+ */
+function event_registration_install() {
+  \Drupal::messenger()->addStatus(__FUNCTION__ . ' module installed successfully.');
+}
