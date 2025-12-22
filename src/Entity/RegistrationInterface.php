@@ -52,4 +52,23 @@ interface RegistrationInterface extends ContentEntityInterface, EntityChangedInt
      */
     public function setEmail($email);
 
+    /**
+     * Gets the event ID.
+     *
+     * @return int
+     *   The event ID.
+     */
+    public function getEventId();
+
+    /**
+     * Sets the event ID.
+     *
+     * @param int $eid
+     *   The event ID.
+     *
+     * @return \Drupal\event_registration\Entity\RegistrationInterface
+     *   The called Registration entity.
+     */
+    public function setEventId($eid);
+
 }
