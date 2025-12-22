@@ -39,4 +39,43 @@ class RegistrationRepository
         return $this->entityTypeManager->getStorage('event_registration');
     }
 
+    /**
+     * Count registrations for an event.
+     *
+     * @param int $event_id
+     *   The event ID.
+     *
+     * @return int
+     *   The number of registrations.
+     */
+    public function countRegistrations($event_id)
+    {
+        return $this->getStorage()
+            ->getQuery()
+            ->accessCheck(FALSE)
+            ->condition('eid', $event_id)
+            ->count()
+            ->execute();
+    }
+
+    /**
+     * Get registrations for an event.
+     *
+     * @param int $event_id
+     *   The event ID.
+     *
+     * @return \Drupal\event_registration\Entity\RegistrationInterface[]
+     *   Array of registration entities.
+     */
+    public function getRegistrations($event_id)
+    {
+        $ids = $this->getStorage()
+            ->getQuery()
+            ->accessCheck(FALSE)
+            ->condition('eid', $event_id)
+            ->execute();
+
+        return $this->getStorage()->loadMultiple($ids);
+    }
+
 }
