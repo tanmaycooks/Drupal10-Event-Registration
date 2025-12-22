@@ -69,6 +69,23 @@ class Registration extends ContentEntityBase implements RegistrationInterface
     /**
      * {@inheritdoc}
      */
+    public function getEventId()
+    {
+        return $this->get('eid')->value;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setEventId($eid)
+    {
+        $this->set('eid', $eid);
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getOwner()
     {
         return $this->get('uid')->entity;
