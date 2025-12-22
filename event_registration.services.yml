@@ -1,4 +1,8 @@
 services:
+  event_registration.repository:
+    class: Drupal\event_registration\Repository\RegistrationRepository
+    arguments: ['@entity_type.manager']
+
   # event_registration.manager:
   #   class: Drupal\event_registration\Service\EventRegistrationManager
   #   arguments: ['@entity_type.manager']
