@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_registration_open
+    - node.type.event
+id: node.event.field_registration_open
+field_name: field_registration_open
+entity_type: node
+bundle: event
+label: 'Registration Open'
+description: 'Check to enable registration for this event.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
