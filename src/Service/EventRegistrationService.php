@@ -1,0 +1,79 @@
+<?php
+
+namespace Drupal\event_registration\Service;
+
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Session\AccountProxyInterface;
+use Drupal\node\NodeInterface;
+
+/**
+ * Service for handling event registrations.
+ */
+class EventRegistrationService
+{
+
+    /**
+     * The entity type manager.
+     *
+     * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+     */
+    protected $entityTypeManager;
+
+    /**
+     * The capacity manager.
+     *
+     * @var \Drupal\event_registration\Service\CapacityManager
+     */
+    protected $capacityManager;
+
+    /**
+     * The current user.
+     *
+     * @var \Drupal\Core\Session\AccountProxyInterface
+     */
+    protected $currentUser;
+
+    /**
+     * Constructor.
+     *
+     * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+     *   The entity type manager.
+     * @param \Drupal\event_registration\Service\CapacityManager $capacity_manager
+     *   The capacity manager.
+     * @param \Drupal\Core\Session\AccountProxyInterface $current_user
+     *   The current user.
+     */
+    public function __construct(EntityTypeManagerInterface $entity_type_manager, CapacityManager $capacity_manager, AccountProxyInterface $current_user)
+    {
+        $this->entityTypeManager = $entity_type_manager;
+        $this->capacityManager = $capacity_manager;
+        $this->currentUser = $current_user;
+    }
+
+    /**
+     * Validates if a user can register for an event.
+     *
+     * @param \Drupal\node\NodeInterface $event
+     *   The event node.
+     * @param \Drupal\Core\Session\AccountProxyInterface $account
+     *   The user account (optional).
+     *
+     * @return bool
+     *   TRUE if valid.
+     */
+    public function validateRegistration(NodeInterface $event, AccountProxyInterface $account = NULL)
+    {
+        // Check if event is open.
+        if (!$event->get('field_registration_open')->value) {
+            return FALSE;
+        }
+
+        // Check capacity.
+        if (!$this->capacityManager->hasSpace($event)) {
+            return FALSE;
+        }
+
+        return TRUE;
+    }
+
+}
