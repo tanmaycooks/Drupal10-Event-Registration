@@ -4,11 +4,12 @@ namespace Drupal\event_registration\Service;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\event_registration\Repository\RegistrationRepository;
+use Drupal\event_registration\CapacityManagerInterface;
 
 /**
  * Manages event capacity logic.
  */
-class CapacityManager
+class CapacityManager implements CapacityManagerInterface
 {
 
     /**
