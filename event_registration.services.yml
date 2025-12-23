@@ -1,7 +1,10 @@
-services:
   event_registration.repository:
     class: Drupal\event_registration\Repository\RegistrationRepository
     arguments: ['@entity_type.manager']
+
+  event_registration.capacity_manager:
+    class: Drupal\event_registration\Service\CapacityManager
+    arguments: ['@event_registration.repository', '@entity_type.manager']
 
   # event_registration.manager:
   #   class: Drupal\event_registration\Service\EventRegistrationManager
