@@ -6,6 +6,6 @@
     class: Drupal\event_registration\Service\CapacityManager
     arguments: ['@event_registration.repository', '@entity_type.manager']
 
-  # event_registration.manager:
-  #   class: Drupal\event_registration\Service\EventRegistrationManager
-  #   arguments: ['@entity_type.manager']
+  event_registration.service:
+    class: Drupal\event_registration\Service\EventRegistrationService
+    arguments: ['@entity_type.manager', '@event_registration.capacity_manager', '@current_user']
