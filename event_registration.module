@@ -19,3 +19,26 @@ function event_registration_help($route_name, RouteMatchInterface $route_match) 
       return $output;
   }
 }
+
+/**
+ * Implements hook_mail().
+ */
+function event_registration_mail($key, &$message, $params) {
+  switch ($key) {
+    case 'confirmation':
+      $message['from'] = \Drupal::config('system.site')->get('mail');
+      $message['subject'] = t('Registration Confirmation: @title', ['@title' => $params['node']->label()]);
+      $message['body'][] = t('You have successfully registered for the event.');
+      break;
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function event_registration_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity->getEntityTypeId() == 'event_registration' && $entity->isNew()) {
+    // Basic duplicate check using EFQ could go here if not handled by service.
+    // Ideally service handles it. This is a failsafe.
+  }
+}
