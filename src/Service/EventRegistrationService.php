@@ -117,7 +117,24 @@ class EventRegistrationService
         // Send confirmation.
         $this->emailManager->sendConfirmation($account->getEmail(), ['node' => $event]);
 
+        \Drupal::logger('event_registration')->notice('User @uid registered for event @eid', [
+            '@uid' => $account->id(),
+            '@eid' => $event->id(),
+        ]);
+
         return $registration;
+    }
+
+    /**
+     * Cancels a registration.
+     *
+     * @param \Drupal\event_registration\Entity\RegistrationInterface $registration
+     *   The registration to cancel.
+     */
+    public function cancelRegistration($registration)
+    {
+        \Drupal::logger('event_registration')->notice('Canceling registration @id', ['@id' => $registration->id()]);
+        $registration->delete();
     }
 
 }
