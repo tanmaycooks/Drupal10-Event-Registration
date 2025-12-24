@@ -8,4 +8,8 @@
 
   event_registration.service:
     class: Drupal\event_registration\Service\EventRegistrationService
-    arguments: ['@entity_type.manager', '@event_registration.capacity_manager', '@current_user']
+    arguments: ['@entity_type.manager', '@event_registration.capacity_manager', '@current_user', '@event_registration.email_manager']
+
+  event_registration.email_manager:
+    class: Drupal\event_registration\Service\EmailNotificationManager
+    arguments: ['@plugin.manager.mail']
