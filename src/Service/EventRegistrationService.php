@@ -76,4 +76,34 @@ class EventRegistrationService
         return TRUE;
     }
 
+    /**
+     * Registers a user for an event.
+     *
+     * @param \Drupal\node\NodeInterface $event
+     *   The event node.
+     * @param \Drupal\Core\Session\AccountProxyInterface $account
+     *   The user account.
+     *
+     * @return \Drupal\event_registration\Entity\RegistrationInterface|false
+     *   The registration entity or FALSE on failure.
+     */
+    public function register(NodeInterface $event, AccountProxyInterface $account)
+    {
+        if (!$this->validateRegistration($event, $account)) {
+            return FALSE;
+        }
+
+        $storage = $this->entityTypeManager->getStorage('event_registration');
+
+        // Create registration.
+        $registration = $storage->create([
+            'eid' => $event->id(),
+            'uid' => $account->id(),
+            'email' => $account->getEmail(),
+        ]);
+
+        $registration->save();
+        return $registration;
+    }
+
 }
