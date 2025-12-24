@@ -27,6 +27,13 @@ class EventRegistrationService
     protected $capacityManager;
 
     /**
+     * The email manager.
+     *
+     * @var \Drupal\event_registration\Service\EmailNotificationManager
+     */
+    protected $emailManager;
+
+    /**
      * The current user.
      *
      * @var \Drupal\Core\Session\AccountProxyInterface
@@ -42,12 +49,15 @@ class EventRegistrationService
      *   The capacity manager.
      * @param \Drupal\Core\Session\AccountProxyInterface $current_user
      *   The current user.
+     * @param \Drupal\event_registration\Service\EmailNotificationManager $email_manager
+     *   The email manager.
      */
-    public function __construct(EntityTypeManagerInterface $entity_type_manager, CapacityManager $capacity_manager, AccountProxyInterface $current_user)
+    public function __construct(EntityTypeManagerInterface $entity_type_manager, CapacityManager $capacity_manager, AccountProxyInterface $current_user, EmailNotificationManager $email_manager)
     {
         $this->entityTypeManager = $entity_type_manager;
         $this->capacityManager = $capacity_manager;
         $this->currentUser = $current_user;
+        $this->emailManager = $email_manager;
     }
 
     /**
@@ -103,6 +113,10 @@ class EventRegistrationService
         ]);
 
         $registration->save();
+
+        // Send confirmation.
+        $this->emailManager->sendConfirmation($account->getEmail(), ['node' => $event]);
+
         return $registration;
     }
 
