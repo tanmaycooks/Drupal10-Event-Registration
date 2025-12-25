@@ -1,0 +1,104 @@
+<?php
+
+namespace Drupal\event_registration\Form;
+
+use Drupal\Core\Form\FormBase;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\event_registration\Service\EventRegistrationService;
+use Drupal\node\NodeInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
+/**
+ * Form for event registration.
+ */
+class RegistrationForm extends FormBase
+{
+
+    /**
+     * The registration service.
+     *
+     * @var \Drupal\event_registration\Service\EventRegistrationService
+     */
+    protected $registrationService;
+
+    /**
+     * Constructor.
+     *
+     * @param \Drupal\event_registration\Service\EventRegistrationService $registration_service
+     *   The registration service.
+     */
+    public function __construct(EventRegistrationService $registration_service)
+    {
+        $this->registrationService = $registration_service;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function create(ContainerInterface $container)
+    {
+        return new static(
+            $container->get('event_registration.service')
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFormId()
+    {
+        return 'event_registration_form';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function buildForm(array $form, FormStateInterface $form_state, NodeInterface $event = NULL)
+    {
+        $form['event_id'] = [
+            '#type' => 'value',
+            '#value' => $event->id(),
+        ];
+
+        $form['info'] = [
+            '#markup' => '<h3>' . $this->t('Register for @title', ['@title' => $event->label()]) . '</h3>',
+        ];
+
+        // Future: Add custom fields if entity has them required on registration.
+        // For now, it's just a confirmation button essentially, as user data is from current user.
+
+        $form['actions']['submit'] = [
+            '#type' => 'submit',
+            '#value' => $this->t('Register'),
+        ];
+
+        return $form;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function validateForm(array &$form, FormStateInterface $form_state)
+    {
+        $event = \Drupal::routeMatch()->getParameter('event');
+        if (!$this->registrationService->validateRegistration($event, $this->currentUser())) {
+            $form_state->setError($form, $this->t('Registration is not available for this event.'));
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function submitForm(array &$form, FormStateInterface $form_state)
+    {
+        $event = \Drupal::routeMatch()->getParameter('event');
+        $result = $this->registrationService->register($event, $this->currentUser());
+
+        if ($result) {
+            $this->messenger()->addStatus($this->t('You have successfully registered.'));
+        } else {
+            $this->messenger()->addError($this->t('Registration failed.'));
+        }
+    }
+
+}
