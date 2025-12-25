@@ -5,3 +5,12 @@ event_registration.settings:
     _title: 'Event Registration Settings'
   requirements:
     _permission: 'administer event registration'
+
+event_registration.register:
+  path: '/events/{event}/register'
+  defaults:
+    _form: '\Drupal\event_registration\Form\RegistrationForm'
+    _title: 'Register for Event'
+  requirements:
+    _permission: 'register for events'
+    event: \d+
