@@ -5,4 +5,9 @@ administer event registration:
 
 register for events:
   title: 'Register for Events'
-  description: 'Allow users to register for events.'
+  description: 'Allows users to register for available events.'
+
+export event registrations:
+  title: 'Export Event Registrations'
+  description: 'Allows users to download registration data.'
+  restrict access: true

@@ -14,3 +14,12 @@ event_registration.register:
   requirements:
     _permission: 'register for events'
     event: \d+
+
+event_registration.export:
+  path: '/node/{node}/registrations/export'
+  defaults:
+    _controller: '\Drupal\event_registration\Controller\CsvExportController::export'
+    _title: 'Export Registrations'
+  requirements:
+    _permission: 'administer event registration'
+    node: \d+
