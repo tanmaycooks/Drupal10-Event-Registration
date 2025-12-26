@@ -12,12 +12,14 @@ class RegistrationController extends ControllerBase
 {
 
     /**
-     * Display a thank you page (optional).
+     * Display a thank you page.
      */
     public function thankYou()
     {
+        $event = \Drupal::routeMatch()->getParameter('event');
         return [
-            '#markup' => $this->t('Thank you for registering!'),
+            '#theme' => 'event_registration_thank_you',
+            '#event' => $event,
         ];
     }
 
