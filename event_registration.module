@@ -38,7 +38,17 @@ function event_registration_mail($key, &$message, $params) {
  */
 function event_registration_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
   if ($entity->getEntityTypeId() == 'event_registration' && $entity->isNew()) {
-    // Basic duplicate check using EFQ could go here if not handled by service.
     // Ideally service handles it. This is a failsafe.
   }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function event_registration_theme() {
+  return [
+    'event_registration_thank_you' => [
+      'variables' => ['event' => NULL],
+    ],
+  ];
 }

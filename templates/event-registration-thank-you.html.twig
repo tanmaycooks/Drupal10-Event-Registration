@@ -1,0 +1,14 @@
+{#
+/**
+ * @file
+ * Default theme implementation for event registration thank you page.
+ *
+ * Available variables:
+ * - event: The event node.
+ */
+#}
+<div class="event-registration-thank-you">
+  <h3>{{ 'Thank you for registering!'|t }}</h3>
+  <p>{{ 'You have successfully registered for %event.'|t({'%event': event.label}) }}</p>
+  <p><a href="{{ path('entity.node.canonical', {'node': event.id}) }}" class="button">{{ 'Back to Event'|t }}</a></p>
+</div>
