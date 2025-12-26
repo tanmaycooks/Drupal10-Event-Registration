@@ -1,0 +1,10 @@
+event_registration.settings_tab:
+  title: 'Settings'
+  route_name: event_registration.settings
+  base_route: event_registration.settings
+
+event_registration.export_tab:
+  title: 'Export Registrations'
+  route_name: event_registration.export
+  base_route: entity.node.canonical
+  weight: 20
