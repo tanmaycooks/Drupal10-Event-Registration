@@ -82,8 +82,15 @@ class RegistrationForm extends FormBase
     public function validateForm(array &$form, FormStateInterface $form_state)
     {
         $event = \Drupal::routeMatch()->getParameter('event');
+
+        // Check if event is open.
+        if (!$this->registrationService->isRegistrationOpen($event)) {
+            $form_state->setError($form, $this->t('Registration is closed for this event.'));
+        }
+
+        // Check capacity.
         if (!$this->registrationService->validateRegistration($event, $this->currentUser())) {
-            $form_state->setError($form, $this->t('Registration is not available for this event.'));
+            $form_state->setError($form, $this->t('Registration is not available (e.g., event full or duplicate).'));
         }
     }
 
