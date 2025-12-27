@@ -91,6 +91,10 @@ class RegistrationForm extends FormBase
         // Check capacity.
         if (!$this->registrationService->validateRegistration($event, $this->currentUser())) {
             $form_state->setError($form, $this->t('Registration is not available (e.g., event full or duplicate).'));
+            \Drupal::logger('event_registration')->warning('Registration validation failed for user @uid on event @eid', [
+                '@uid' => $this->currentUser()->id(),
+                '@eid' => $event->id(),
+            ]);
         }
     }
 
