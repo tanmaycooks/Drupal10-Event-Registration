@@ -92,12 +92,14 @@ class RegistrationForm extends FormBase
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
         $event = \Drupal::routeMatch()->getParameter('event');
-        $result = $this->registrationService->register($event, $this->currentUser());
 
-        if ($result) {
+        try {
+            $this->registrationService->register($event, $this->currentUser());
             $this->messenger()->addStatus($this->t('You have successfully registered.'));
-        } else {
-            $this->messenger()->addError($this->t('Registration failed.'));
+        } catch (RegistrationException $e) {
+            $this->messenger()->addError($e->getMessage());
+        } catch (\Exception $e) {
+            $this->messenger()->addError($this->t('An unexpected error occurred.'));
         }
     }
 

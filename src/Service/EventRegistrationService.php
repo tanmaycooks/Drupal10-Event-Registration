@@ -94,35 +94,43 @@ class EventRegistrationService
      * @param \Drupal\Core\Session\AccountProxyInterface $account
      *   The user account.
      *
-     * @return \Drupal\event_registration\Entity\RegistrationInterface|false
-     *   The registration entity or FALSE on failure.
+     * @return \Drupal\event_registration\Entity\RegistrationInterface
+     *   The registration entity.
+     *
+     * @throws \Drupal\event_registration\Exception\RegistrationException
+     *   If registration fails for any reason.
      */
     public function register(NodeInterface $event, AccountProxyInterface $account)
     {
         if (!$this->validateRegistration($event, $account)) {
-            return FALSE;
+            throw new RegistrationException("Registration validation failed.");
         }
 
-        $storage = $this->entityTypeManager->getStorage('event_registration');
+        try {
+            $storage = $this->entityTypeManager->getStorage('event_registration');
 
-        // Create registration.
-        $registration = $storage->create([
-            'eid' => $event->id(),
-            'uid' => $account->id(),
-            'email' => $account->getEmail(),
-        ]);
+            // Create registration.
+            $registration = $storage->create([
+                'eid' => $event->id(),
+                'uid' => $account->id(),
+                'email' => $account->getEmail(),
+            ]);
 
-        $registration->save();
+            $registration->save();
 
-        // Send confirmation.
-        $this->emailManager->sendConfirmation($account->getEmail(), ['node' => $event]);
+            // Send confirmation.
+            $this->emailManager->sendConfirmation($account->getEmail(), ['node' => $event]);
 
-        \Drupal::logger('event_registration')->notice('User @uid registered for event @eid', [
-            '@uid' => $account->id(),
-            '@eid' => $event->id(),
-        ]);
+            \Drupal::logger('event_registration')->notice('User @uid registered for event @eid', [
+                '@uid' => $account->id(),
+                '@eid' => $event->id(),
+            ]);
 
-        return $registration;
+            return $registration;
+        } catch (\Exception $e) {
+            \Drupal::logger('event_registration')->error($e->getMessage());
+            throw new RegistrationException("System error during registration.", 0, $e);
+        }
     }
 
     /**
