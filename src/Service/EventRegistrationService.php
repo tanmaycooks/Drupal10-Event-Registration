@@ -88,6 +88,20 @@ class EventRegistrationService
     }
 
     /**
+     * Checks if registration is open for an event.
+     *
+     * @param \Drupal\node\NodeInterface $event
+     *   The event node.
+     *
+     * @return bool
+     *   TRUE if open.
+     */
+    public function isRegistrationOpen(NodeInterface $event)
+    {
+        return (bool) $event->get('field_registration_open')->value;
+    }
+
+    /**
      * Registers a user for an event.
      *
      * @param \Drupal\node\NodeInterface $event
