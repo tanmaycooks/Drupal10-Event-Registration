@@ -7,6 +7,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\event_registration\Service\EventRegistrationService;
 use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\event_registration\Exception\RegistrationException;
 
 /**
  * Form for event registration.
@@ -96,7 +97,7 @@ class RegistrationForm extends FormBase
         try {
             $this->registrationService->register($event, $this->currentUser());
             $this->messenger()->addStatus($this->t('You have successfully registered.'));
-        } catch (RegistrationException $e) {
+        } catch (\Drupal\event_registration\Exception\RegistrationException $e) {
             $this->messenger()->addError($e->getMessage());
         } catch (\Exception $e) {
             $this->messenger()->addError($this->t('An unexpected error occurred.'));

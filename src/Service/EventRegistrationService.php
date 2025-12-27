@@ -5,6 +5,7 @@ namespace Drupal\event_registration\Service;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\node\NodeInterface;
+use Drupal\event_registration\Exception\RegistrationException;
 
 /**
  * Service for handling event registrations.
