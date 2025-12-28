@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
+         colors="true"
+         cacheResult="false"
+         bootstrap="vendor/autoload.php">
+  <php>
+    <ini name="error_reporting" value="32767"/>
+    <ini name="memory_limit" value="-1"/>
+    <env name="SIMPLETEST_BASE_URL" value="http://localhost"/>
+    <env name="SIMPLETEST_DB" value="sqlite://localhost/sites/default/files/db.sqlite"/>
+    <env name="BROWSERTEST_OUTPUT_DIRECTORY" value="sites/simpletest/browser_output"/>
+  </php>
+  <testsuites>
+    <testsuite name="event_registration">
+      <directory>./tests</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>
