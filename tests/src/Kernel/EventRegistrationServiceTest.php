@@ -18,16 +18,6 @@ class EventRegistrationServiceTest extends KernelTestBase
 
     protected $service;
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->installEntitySchema('event_registration');
-        $this->installEntitySchema('user');
-        $this->installEntitySchema('node');
-        $this->installConfig(['event_registration', 'node']);
-
-        $this->service = \Drupal::service('event_registration.service');
-    }
 
     public function testRegister()
     {
