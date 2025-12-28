@@ -10,6 +10,7 @@ use Drupal\user\Entity\User;
  * Tests the EventRegistrationService.
  *
  * @group event_registration
+ * @coversDefaultClass \Drupal\event_registration\Service\EventRegistrationService
  */
 class EventRegistrationServiceTest extends KernelTestBase
 {
