@@ -33,6 +33,16 @@ class RegistrationFlowTest extends BrowserTestBase
         // Submit form.
         $this->submitForm([], 'Register');
         $this->assertSession()->pageTextContains('You have successfully registered');
+
+        // Test closed event.
+        $closed_event = $this->drupalCreateNode([
+            'type' => 'event',
+            'title' => 'Closed Event',
+            'field_registration_open' => 0,
+        ]);
+        $this->drupalGet('events/' . $closed_event->id() . '/register');
+        $this->submitForm([], 'Register');
+        $this->assertSession()->pageTextContains('Registration is closed for this event');
     }
 
 }
