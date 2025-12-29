@@ -18,4 +18,12 @@ Custom event registration system for Drupal 10/11.
    ```bash
    drush en event_registration -y
    ```
-3. Configure permissions at `/admin/people/permissions`.
+## Configuration
+1. Navigate to `Configuration > Event Registration > Settings`.
+2. Enable email notifications if desired.
+3. Manage permissions in `People > Permissions`.
+
+## Usage
+- **Create Event**: Add an 'Event' node and set capacity.
+- **Register**: Users click "Register" tab on event node.
+- **Export**: Admins can export CSV from "Export Registrations" tab.
