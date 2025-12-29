@@ -9,6 +9,9 @@ use Drupal\event_registration\Exception\RegistrationException;
 
 /**
  * Service for handling event registrations.
+ *
+ * This service acts as the main entry point for creating and managing
+ * registrations, including validation, capacity checking, and email notifications.
  */
 class EventRegistrationService
 {

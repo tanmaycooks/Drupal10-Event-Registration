@@ -7,6 +7,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Controller for event registration pages.
+ *
+ * Handles the display of the thank you page following a successful registration.
  */
 class RegistrationController extends ControllerBase
 {

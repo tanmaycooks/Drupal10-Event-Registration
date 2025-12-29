@@ -10,6 +10,8 @@ use Drupal\node\NodeInterface;
 
 /**
  * Controller for CSV exports.
+ *
+ * Generates and streams a CSV file containing registration data for a specific event.
  */
 class CsvExportController extends ControllerBase
 {
